@@ -19,7 +19,7 @@
         @forelse ($portofolio->take(2) as $item)
           <div class="card-media" style="aspect-ratio:4/3;">
             @if ($item->foto_sesudah)
-              <img src="{{ asset('storage/' . $item->foto_sesudah) }}" alt="{{ $item->judul }}">
+             <img src="{{ asset($produk->foto) }}" ...>
             @else
               <span>{{ $item->judul }}</span>
             @endif

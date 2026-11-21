@@ -101,7 +101,11 @@ p{ margin:0 0 1em; color: var(--text-mid); max-width: 62ch; }
 .navbar{ position: sticky; top:0; z-index: 100; background: rgba(8,9,11,0.92); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
 .navbar .wrap{ display:flex; align-items:center; justify-content:space-between; height: 76px; }
 .brand{ display:flex; align-items:center; gap:12px; }
-.brand img{ height: 44px; width:auto; }
+.brand img {
+  height: 48px; /* Sesuaikan angkanya (bisa 40px - 55px) agar pas di navbar */
+  width: auto;
+  object-fit: contain; /* Ini kunci agar gambar tidak gepeng */
+}
 .brand-text{ font-family: var(--font-display); font-weight:700; font-size:1.15rem; line-height:1.1; }
 .brand-text span{ display:block; font-size:.62rem; font-weight:500; color: var(--text-low); font-family: var(--font-body); letter-spacing: .04em; }
 .nav-links{ display:flex; align-items:center; gap: 30px; }
@@ -112,17 +116,86 @@ p{ margin:0 0 1em; color: var(--text-mid); max-width: 62ch; }
 .nav-user{ font-size:.85rem; color: var(--text-mid); }
 .nav-toggle{ display:none; background:none; border:none; color:var(--text-hi); font-size: 1.6rem; line-height:1; }
 
+/* =========================================================
+   PERBAIKAN TOTAL NAVBAR MOBILE (DROPDOWN RAPI & TOMBOL DAFTAR)
+   ========================================================= */
+
 @media (max-width: 920px){
-  .nav-links{
-    position:fixed; top:76px; left:0; right:0; bottom:0; background: var(--bg-base);
-    flex-direction:column; align-items:flex-start; gap:0; padding: 10px 24px 30px;
-    transform: translateX(100%); transition: transform .25s ease; overflow-y:auto;
-  }
-  .nav-links.open{ transform: translateX(0); }
-  .nav-links a{ width:100%; padding: 14px 0; border-bottom:1px solid var(--line); }
-  .nav-toggle{ display:block; }
-  .nav-actions .btn-label{ display:none; }
+    /* 1. Perkecil tinggi navbar di HP */
+    .navbar .wrap {
+        height: 64px;
+        position: relative; /* Penting untuk posisi menu dropdown */
+    }
+    
+    /* 2. Sembunyikan teks kecil di bawah logo agar muat */
+    .brand-text span {
+        display: none !important; 
+    }
+    
+    /* 3. Perbaiki Tombol "Masuk" dan "Daftar" agar Teksnya Muncul */
+    .nav-actions .btn-label {
+        display: inline !important; /* Paksa teks "Daftar" muncul */
+    }
+    .nav-actions .btn-sm {
+        padding: 8px 12px !important;
+        font-size: 0.8rem !important;
+    }
+    .nav-actions {
+        gap: 8px;
+    }
+    
+    /* 4. Desain Menu Dropdown (Tidak memenuhi layar, tidak perlu scroll) */
+    .nav-links {
+        position: absolute;
+        top: 64px;
+        left: 0;
+        width: 100%;
+        background-color: var(--bg-panel);
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 0;
+        margin: 0;
+        border-bottom: 1px solid var(--line);
+        box-shadow: 0 10px 15px rgba(0,0,0,0.5);
+        
+        /* Sembunyikan menu secara default */
+        display: none; 
+    }
+    
+    /* 5. Tampilkan menu saat tombol hamburger diklik */
+    .nav-links.open {
+        display: flex; 
+    }
+    
+    /* 6. Rapikan Link Menu */
+    .nav-links a {
+        width: 100%;
+        padding: 16px 24px;
+        border-bottom: 1px solid var(--line);
+        box-sizing: border-box;
+        font-size: 1rem;
+    }
+    
+    /* 7. Efek Menu Aktif (Warna Oranye di kiri) */
+    .nav-links a.active {
+        background-color: rgba(255, 61, 0, 0.08);
+        border-left: 4px solid var(--orange-500);
+        padding-left: 20px;
+        color: var(--orange-400);
+    }
+    
+    /* Hilangkan garis bawah menu aktif versi desktop */
+    .nav-links a.active::after {
+        display: none; 
+    }
+    
+    /* 8. Tampilkan Ikon Garis Tiga */
+    .nav-toggle {
+        display: block;
+        margin-left: 5px;
+    }
 }
+
 
 /* --- Hero --- */
 .hero{
@@ -136,6 +209,7 @@ p{ margin:0 0 1em; color: var(--text-mid); max-width: 62ch; }
 .hero-panel .stat-row{ display:flex; gap:28px; margin-top: 16px; }
 .stat-num{ font-family: var(--font-display); font-size:1.9rem; font-weight:700; color: var(--orange-400); }
 .stat-label{ font-size:.8rem; color: var(--text-low); }
+
 @media (max-width: 920px){ .hero .wrap{ grid-template-columns: 1fr; } }
 
 /* --- Section --- */
@@ -217,16 +291,6 @@ th, td{ text-align:left; padding: 12px 14px; border-bottom: 1px solid var(--line
 th{ color: var(--text-low); font-weight:600; font-size:.78rem; letter-spacing:.02em; }
 tr:hover td{ background: rgba(255,255,255,.02); }
 
-/* --- Footer --- */
-footer{ background: var(--bg-panel); border-top:1px solid var(--line); padding: 56px 0 28px; }
-.footer-grid{ display:grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
-.footer-grid h4{ font-size:.85rem; color: var(--text-hi); margin-bottom:16px; }
-.footer-grid li{ margin-bottom:10px; }
-.footer-grid a{ color: var(--text-mid); font-size:.88rem; }
-.footer-grid a:hover{ color: var(--orange-400); }
-.footer-bottom{ border-top:1px solid var(--line); padding-top:22px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; font-size:.8rem; color: var(--text-low); }
-@media (max-width: 780px){ .footer-grid{ grid-template-columns: 1fr 1fr; } }
-
 /* --- Admin layout --- */
 .admin-shell{ display:flex; min-height:100vh; }
 .admin-sidebar{ width: 250px; flex: 0 0 auto; background: var(--bg-panel); border-right:1px solid var(--line); padding: 26px 18px; position:sticky; top:0; height:100vh; }
@@ -265,4 +329,380 @@ footer{ background: var(--bg-panel); border-top:1px solid var(--line); padding: 
     radial-gradient(ellipse 600px 400px at 90% 85%, rgba(76,147,232,0.10), transparent 60%),
     repeating-linear-gradient(135deg, rgba(255,255,255,0.025) 0px, rgba(255,255,255,0.025) 1px, transparent 1px, transparent 26px),
     repeating-linear-gradient(45deg, rgba(255,255,255,0.015) 0px, rgba(255,255,255,0.015) 1px, transparent 1px, transparent 26px);
+}
+
+/* =========================================================
+   TAMBAHAN KHUSUS TAMPILAN MOBILE (RESPONSIVE)
+   ========================================================= */
+
+/* 1. Merapikan Navbar di HP */
+@media (max-width: 620px) {
+    .navbar .wrap {
+        height: 64px; /* Kurangi tinggi navbar */
+    }
+    .brand img {
+        height: 36px; /* Perkecil logo sedikit */
+    }
+    /* Sembunyikan teks sub-judul di HP agar tidak makan tempat */
+    .brand-text span {
+        display: none; 
+    }
+}
+
+/* 2. Merapikan Tombol di Hero Section (Beranda) */
+@media (max-width: 620px) {
+    /* Buat tombol menjadi vertikal (atas-bawah) dan selebar layar */
+    .hero .flex, 
+    .hero .gap-3 { /* Sesuaikan class ini dengan wrapper tombol Anda */
+        flex-direction: column;
+        width: 100%;
+        gap: 12px;
+    }
+    
+    .hero .btn {
+        width: 100%;
+        justify-content: center;
+        padding: 14px 20px;
+    }
+}
+
+/* 3. Jarak antar section di HP */
+@media (max-width: 620px) {
+    .section {
+        padding: 48px 0; /* Kurangi padding yang tadinya 72px */
+    }
+    h1 {
+        font-size: 2.2rem; /* Sesuaikan ukuran judul utama */
+    }
+}
+
+/* 4. Merapikan Halaman Form / Login di HP */
+@media (max-width: 620px) {
+    .form-card {
+        padding: 24px;
+        margin: 0 16px; /* Beri jarak dari pinggir layar */
+    }
+}
+
+/* =========================================================
+   PERBAIKAN: Menghilangkan ruang kosong raksasa di HP
+   ========================================================= */
+
+/* 1. Paksa konten utama naik ke atas */
+main {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+}
+
+/* 2. Kurangi jarak padding section di HP agar tidak ada ruang kosong besar */
+@media (max-width: 768px) {
+    .section {
+        padding-top: 20px !important; 
+        padding-bottom: 20px !important;
+    }
+    
+    /* Jika ada judul halaman (seperti "Layanan") yang jaraknya kegedean */
+    .section-head, 
+    h1, h2 {
+        margin-top: 10px !important;
+    }
+}
+
+/* 3. Pastikan menu dropdown di HP langsung nempel di bawah navbar (tidak ada gap) */
+@media (max-width: 920px) {
+    .nav-links {
+        top: 64px !important; /* Samakan dengan tinggi navbar di HP */
+        padding-top: 10px !important;
+    }
+}
+
+/* =========================================================
+   TAMBAHAN UI/UX (Sosmed, Sticky Footer, Floating WA)
+   ========================================================= */
+
+/* 1. Sticky Footer (Membuat footer selalu di bawah) */
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+main {
+  flex: 1 0 auto;
+}
+
+/* 2. Ikon Sosial Media di Footer */
+.social-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: color 0.2s ease;
+}
+.social-links a i {
+  font-size: 1.1rem;
+  width: 20px;
+  text-align: center;
+}
+.social-links a:hover i {
+  color: var(--orange-400);
+}
+
+/* 3. Link Legal di Footer Bawah */
+.legal-links {
+  font-size: 0.75rem;
+  margin-left: 10px;
+}
+.legal-links a {
+  color: var(--text-low);
+  transition: color 0.2s;
+}
+.legal-links a:hover {
+  color: var(--orange-400);
+}
+
+/* 4. Ikon Gembok Admin */
+.admin-lock {
+  color: var(--text-low);
+  font-size: 1rem;
+  transition: color 0.2s;
+}
+.admin-lock:hover {
+  color: var(--orange-400);
+}
+
+/* 5. Floating Tombol WhatsApp */
+.floating-wa {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background-color: #25D366; /* Warna khas WhatsApp */
+  color: #fff;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4);
+  z-index: 1000;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.floating-wa:hover {
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 6px 16px rgba(37, 211, 102, 0.6);
+  color: #fff;
+}
+
+/* Responsif untuk HP */
+@media (max-width: 768px) {
+  .floating-wa {
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    font-size: 1.6rem;
+  }
+  .footer-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+  .legal-links {
+    display: block;
+    margin-left: 0;
+    margin-top: 5px;
+  }
+}
+
+/* =========================================================
+   STYLE FOOTER MODERN (PREMIUM & CLEAN)
+   ========================================================= */
+
+.modern-footer {
+  background-color: var(--bg-base);
+  background-image: radial-gradient(circle at bottom right, rgba(255, 122, 0, 0.05) 0%, transparent 50%);
+  border-top: 1px solid var(--line);
+  padding: 70px 0 30px;
+  font-size: 0.9rem;
+}
+
+.footer-main {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1.2fr;
+  gap: 40px;
+  margin-bottom: 50px;
+}
+
+@media (max-width: 920px) {
+  .footer-main {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 620px) {
+  .footer-main {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+}
+
+/* Kolom 1: Brand */
+.footer-brand p {
+  color: var(--text-mid);
+  font-size: 0.85rem;
+  line-height: 1.6;
+  margin-top: 12px;
+  margin-bottom: 20px;
+  max-width: 300px;
+}
+
+/* Ikon Sosmed Horizontal */
+.footer-socials {
+  display: flex;
+  gap: 12px;
+}
+
+.footer-socials a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  color: var(--text-mid);
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.footer-socials a:hover {
+  background: var(--orange-500);
+  color: #fff;
+  border-color: var(--orange-500);
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(255, 122, 0, 0.3);
+}
+
+/* Kolom 2 & 3: Links */
+.footer-links h4,
+.footer-contact h4 {
+  color: var(--text-hi);
+  font-size: 0.9rem;
+  margin-bottom: 20px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.footer-links ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-links li {
+  margin-bottom: 12px;
+}
+
+.footer-links a {
+  color: var(--text-mid);
+  transition: all 0.2s ease;
+  display: inline-block;
+}
+
+.footer-links a:hover {
+  color: var(--orange-400);
+  transform: translateX(5px); /* Efek geser saat di-hover */
+}
+
+/* Kolom 4: Kontak */
+.footer-contact .contact-item {
+  display: flex;
+  gap: 12px;
+  color: var(--text-mid);
+  font-size: 0.85rem;
+  margin-bottom: 15px;
+  line-height: 1.5;
+}
+
+.footer-contact .contact-item i {
+  color: var(--orange-500);
+  margin-top: 3px;
+}
+
+.btn-footer-wa {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(37, 211, 102, 0.1);
+  color: #25D366;
+  border: 1px solid rgba(37, 211, 102, 0.3);
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-top: 10px;
+  transition: all 0.3s ease;
+}
+
+.btn-footer-wa:hover {
+  background: #25D366;
+  color: #fff;
+  border-color: #25D366;
+}
+
+/* Bagian Bawah (Copyright) */
+.footer-bottom {
+  border-top: 1px solid var(--line);
+  padding-top: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  font-size: 0.8rem;
+  color: var(--text-low);
+}
+
+.footer-copy {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.legal-links {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.legal-links a {
+  color: var(--text-low);
+  transition: color 0.2s;
+}
+
+.legal-links a:hover {
+  color: var(--text-hi);
+}
+
+.separator {
+  color: var(--line);
+}
+
+.admin-lock {
+  color: var(--text-low);
+  font-size: 1rem;
+  transition: color 0.2s;
+}
+
+.admin-lock:hover {
+  color: var(--orange-400);
+}
+
+@media (max-width: 620px) {
+  .footer-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }

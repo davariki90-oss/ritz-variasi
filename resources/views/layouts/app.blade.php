@@ -7,6 +7,8 @@
 <meta name="description" content="Ritz Variasi Karawang — bengkel variasi mobil: audio, lighting, kaca film, interior, eksterior &amp; custom modifikasi. Booking online, tanpa antre.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+<!-- Tambahan Ikon FontAwesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 @stack('styles')
 </head>
 <body>
@@ -14,7 +16,7 @@
 <header class="navbar">
   <div class="wrap">
     <a href="{{ route('home') }}" class="brand">
-      <img src="{{ asset('images/logo.png') }}" alt="Logo Ritz Variasi" onerror="this.style.display='none'">
+      <img src="{{ asset('images/logo-ritz-baru.png') }}" alt="Logo Ritz Variasi" style="height: 40px; width: auto; margin-bottom: 10px;">
       <span class="brand-text">RITZ VARIASI<span>Audio, Lighting &amp; Accessories — Karawang</span></span>
     </a>
 
@@ -66,45 +68,88 @@
   @yield('content')
 </main>
 
-<footer>
-  <div class="wrap">
-    <div class="footer-grid">
-      <div>
-        <span class="brand-text">RITZ VARIASI</span>
-        <p style="margin-top:12px; font-size:.85rem;">Bengkel variasi mobil terpercaya di Karawang — audio, lighting, kaca film, interior, eksterior, hingga custom modifikasi.</p>
-      </div>
-      <div>
-        <h4>Navigasi</h4>
-        <ul>
-          <li><a href="{{ route('layanan.index') }}">Layanan</a></li>
-          <li><a href="{{ route('produk.index') }}">Produk</a></li>
-          <li><a href="{{ route('portofolio.index') }}">Portofolio</a></li>
-          <li><a href="{{ route('artikel.index') }}">Artikel</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4>Sosial Media</h4>
-        <ul>
-          <li><a href="https://wa.me/6281511626888" target="_blank" rel="noopener">WhatsApp — 0815-1162-6888</a></li>
-          <li><a href="https://facebook.com/RitzVariasi" target="_blank" rel="noopener">Facebook — Ritz Variasi</a></li>
-          <li><a href="https://instagram.com/ritzvariasi" target="_blank" rel="noopener">Instagram — @ritzvariasi</a></li>
-          <li><a href="https://tiktok.com/@ritz.audioshoplighting" target="_blank" rel="noopener">TikTok — @ritz.audioshoplighting</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4>Jam Operasional</h4>
-        <ul>
-          <li style="color:var(--text-mid); font-size:.85rem;">Senin – Sabtu: 08.00 – 17.00</li>
-          <li style="color:var(--text-mid); font-size:.85rem;">Minggu &amp; Libur: Tutup</li>
-        </ul>
-      </div>
+<footer class="modern-footer">
+    <div class="wrap">
+        <div class="footer-main">
+            <!-- Kolom 1: Brand & Sosmed -->
+            <div class="footer-brand">
+                <a href="{{ route('home') }}" class="brand" style="margin-bottom: 16px;">
+                    <img src="{{ asset('images/logo-ritz-baru.png') }}" alt="Logo Ritz Variasi" style="height: 50px; width: auto; margin-bottom: 12px;" onerror="this.style.display='none'">
+                    <span class="brand-text">RITZ VARIASI</span>
+                </a>
+                <p>Bengkel variasi mobil terpercaya di Karawang. Audio, Lighting, Kaca Film, Interior, & Custom Modifikasi.</p>
+                
+                <div class="footer-socials">
+                    <a href="https://wa.me/6281511626888" target="_blank" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+                    <a href="https://facebook.com/RitzVariasi" target="_blank" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="https://instagram.com/ritzvariasi" target="_blank" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://tiktok.com/@ritz.audioshoplighting" target="_blank" title="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+                </div>
+            </div>
+
+            <!-- Kolom 2: Navigasi -->
+            <div class="footer-links">
+                <h4>Navigasi</h4>
+                <ul>
+                    <li><a href="{{ route('home') }}">Home</a></li>
+                    <li><a href="{{ route('layanan.index') }}">Layanan</a></li>
+                    <li><a href="{{ route('produk.index') }}">Produk</a></li>
+                    <li><a href="{{ route('portofolio.index') }}">Portofolio</a></li>
+                    <li><a href="{{ route('artikel.index') }}">Artikel</a></li>
+                    <li><a href="{{ route('kontak.index') }}">Kontak</a></li>
+                </ul>
+            </div>
+
+            <!-- Kolom 3: Layanan (Shortcut) -->
+            <div class="footer-links">
+                <h4>Layanan Kami</h4>
+                <ul>
+                    <li><a href="#">Audio & Sound System</a></li>
+                    <li><a href="#">Lampu & Lighting</a></li>
+                    <li><a href="#">Kaca Film</a></li>
+                    <li><a href="#">Interior & Eksterior</a></li>
+                    <li><a href="#">Custom Modifikasi</a></li>
+                </ul>
+            </div>
+
+            <!-- Kolom 4: Kontak Singkat -->
+            <div class="footer-contact">
+                <h4>Hubungi Kami</h4>
+                <div class="contact-item">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <span>Jl. Raya Syekh Quro No.101, Palumbonsari, Karawang.</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fa-solid fa-phone"></i>
+                    <span>0815-1162-6888</span>
+                </div>
+                <a href="https://wa.me/6281511626888" class="btn-footer-wa" target="_blank">
+                    <i class="fa-brands fa-whatsapp"></i> Chat Admin
+                </a>
+            </div>
+        </div>
+
+        <!-- Bagian Bawah (Copyright) -->
+        <div class="footer-bottom">
+            <div class="footer-copy">
+                <span>&copy; {{ date('Y') }} Ritz Variasi Karawang. All rights reserved.</span>
+                <span class="legal-links">
+                    <a href="/kebijakan-privasi">Kebijakan Privasi</a>
+                    <span class="separator">•</span>
+                    <a href="/syarat-ketentuan">Syarat & Ketentuan</a>
+                </span>
+            </div>
+            <a href="{{ route('admin.login') }}" title="Admin Area" class="admin-lock">
+                <i class="fa-solid fa-lock"></i>
+            </a>
+        </div>
     </div>
-    <div class="footer-bottom">
-      <span>&copy; {{ date('Y') }} Ritz Variasi Karawang. Semua hak dilindungi.</span>
-      <span><a href="{{ route('admin.login') }}" style="color:var(--text-low); font-size:.75rem;">Admin</a></span>
-    </div>
-  </div>
 </footer>
+
+<!-- Floating WhatsApp Button -->
+<a href="https://wa.me/6281511626888?text=Halo%20Ritz%20Variasi,%20saya%20mau%20tanya-tanya%20soal%20modifikasi%20mobil." class="floating-wa" target="_blank" rel="noopener" title="Chat WhatsApp">
+  <i class="fa-brands fa-whatsapp"></i>
+</a>
 
 <script>
   document.getElementById('navToggle')?.addEventListener('click', function () {
